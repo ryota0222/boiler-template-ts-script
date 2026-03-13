@@ -1,4 +1,4 @@
-# ts-script-template
+# boiler-template-ts-script
 
 TypeScript スクリプト開発用のボイラープレートテンプレート。
 
