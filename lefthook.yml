@@ -1,0 +1,25 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: lint
+      glob: '*.ts'
+      exclude: '*.config.ts'
+      run: npx eslint {staged_files}
+    - name: format
+      run: npx prettier --check --ignore-unknown {staged_files}
+    - name: typecheck
+      run: npx tsc --noEmit
+    - name: knip
+      run: npx knip
+    - name: depcruise
+      run: npx depcruise src/
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: npx commitlint --edit {1}
+
+pre-push:
+  jobs:
+    - name: test
+      run: npx vitest run
