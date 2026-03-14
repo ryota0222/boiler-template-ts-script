@@ -18,11 +18,10 @@ paths: ['.github/workflows/*.yaml']
 ## Action Version Pinning
 
 - Pin actions by full commit SHA (never use tags directly)
-- Include the version tag as an inline comment
 
 ```yaml
 # Good
-- uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+- uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
 # Bad
 - uses: actions/checkout@v4

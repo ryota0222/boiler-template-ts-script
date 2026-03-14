@@ -13,6 +13,12 @@ pre-commit:
       run: npx knip
     - name: depcruise
       run: npx depcruise src/
+    - name: markdownlint
+      glob: '*.md'
+      run: npx markdownlint-cli2 {staged_files}
+    - name: actionlint
+      glob: '.github/workflows/*.yaml'
+      run: actionlint {staged_files}
 
 commit-msg:
   jobs:

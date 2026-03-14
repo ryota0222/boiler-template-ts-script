@@ -6,11 +6,11 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac
         with:
-          node-version: '22'
+          install: true
 
       - run: npm ci
 
@@ -28,6 +28,12 @@ jobs:
 
       - name: Dependency cruiser
         run: npm run depcruise
+
+      - name: Markdownlint
+        run: npm run lint:md
+
+      - name: Actionlint
+        run: npm run lint:actions
 
       - name: Test
         run: npm run test
