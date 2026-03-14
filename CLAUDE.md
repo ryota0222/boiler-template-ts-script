@@ -8,7 +8,7 @@ TypeScript script template for Node.js v22+ / ESM. Built as a CLI-executable scr
 
 ## Directory Structure
 
-```
+```text
 src/
   index.ts          # CLI entry point
   entities/          # Type definitions & zod schemas (domain models)

@@ -57,7 +57,7 @@ expect(result).toBe('*******5678');
 
 Test files are co-located in the **same directory** as their source.
 
-```
+```text
 src/
   utils/
     maskString.ts

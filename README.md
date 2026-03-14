@@ -74,7 +74,7 @@ npm run dev
 
 ## ファイル構成
 
-```
+```text
 .
 ├── src/
 │   ├── index.ts              # CLI エントリーポイント
