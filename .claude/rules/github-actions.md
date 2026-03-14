@@ -1,24 +1,24 @@
 ---
-description: GitHub Actions ワークフローファイルの規約
+description: Conventions for GitHub Actions workflow files
 paths: ['.github/workflows/*.yaml']
 ---
 
-# GitHub Actions 規約
+# GitHub Actions Conventions
 
-## ファイル拡張子
+## File Extension
 
-- `.yaml` を使用する（`.yml` は不可）
+- Use `.yaml` (never `.yml`)
 
-## ファイル名
+## File Naming
 
-- アクションベースの命名にする（動詞 + 名詞）
+- Use action-based names (verb + noun)
   - Good: `run-ci.yaml`, `deploy-production.yaml`, `check-lint.yaml`
   - Bad: `ci.yaml`, `production.yaml`, `lint.yaml`
 
-## アクションのバージョン指定
+## Action Version Pinning
 
-- コミットIDでピン留めする（タグは不可）
-- コメントでバージョンタグを併記する
+- Pin actions by full commit SHA (never use tags directly)
+- Include the version tag as an inline comment
 
 ```yaml
 # Good
