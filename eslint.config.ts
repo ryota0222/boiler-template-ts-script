@@ -9,6 +9,9 @@ export default defineConfig(
   tseslint.configs.stylisticTypeChecked,
   perfectionist.configs['recommended-natural'],
   {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
     languageOptions: {
       parserOptions: {
         projectService: true,
