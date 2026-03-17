@@ -99,3 +99,7 @@ description: Coding best practices (code quality, error handling, performance, l
   // Bad: conditional logic in index.ts
   if (process.argv[2] === '--dry-run') { ... }
   ```
+
+## Additional Rules
+
+- Follow all rule files under `docs/rules/` (except `template.md`)
