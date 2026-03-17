@@ -21,9 +21,9 @@ description: Coding best practices (code quality, error handling, performance, l
 
   ```typescript
   // Good
-  import { AuthUser } from '#@/entities/AuthUser.js';
+  import { AuthUser } from '@/entities/AuthUser';
   // Bad
-  import { AuthUser } from '#@/entities/index.js';
+  import { AuthUser } from '@/entities/index';
   ```
 
 - No backward-compatibility code (delete obsolete code immediately)
@@ -91,7 +91,7 @@ description: Coding best practices (code quality, error handling, performance, l
 
   ```typescript
   // Good: index.ts
-  import { run } from '#@/libs/runner/run.js';
+  import { run } from '@/libs/runner/run';
   const result = await run();
   console.log(result);
   process.exit(0);
