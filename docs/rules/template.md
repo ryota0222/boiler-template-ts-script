@@ -1,20 +1,20 @@
-# {カテゴリ名}
+# {Category Name}
 
-<!-- このファイルのルールはClaude Codeがコーディング時に参照します -->
+<!-- Rules in this file are referenced by Claude Code during coding -->
 
-## {ルール名}
+## {Rule Name}
 
-- **種別**: MUST（強制） / MUST NOT（禁止）
-- **理由**: {なぜこのルールがあるか}
+- **Type**: MUST / MUST NOT
+- **Reason**: {Why this rule exists}
 
-### 内容
+### Details
 
-{具体的なルールの説明}
+{Specific rule description}
 
 ```typescript
 // Good
-// {推奨されるコード例}
+// {Recommended code example}
 
 // Bad
-// {禁止されるコード例}
+// {Prohibited code example}
 ```

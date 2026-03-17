@@ -81,7 +81,8 @@ description: Coding best practices (code quality, error handling, performance, l
 
 ## Language Policy
 
-- All documentation, CLI output messages, code comments, test names, and commit messages must be written in Japanese
+- CLI output messages, code comments, test names, and commit messages must be written in Japanese
+- Rule files (`.claude/rules/`, `docs/rules/`) must be written in English
 
 ## CLI Entry Point Constraints
 

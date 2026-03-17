@@ -1,5 +1,5 @@
-# 実装パターンの強制・禁止
+# Implementation Patterns
 
-<!-- このファイルのルールはClaude Codeがコーディング時に参照します -->
+<!-- Rules in this file are referenced by Claude Code during coding -->
 
-<!-- ルールは開発中に追記していきます -->
+<!-- Rules will be added during development -->

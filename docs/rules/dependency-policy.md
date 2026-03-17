@@ -1,5 +1,5 @@
-# ライブラリ選定・使用ルール
+# Dependency Policy
 
-<!-- このファイルのルールはClaude Codeがコーディング時に参照します -->
+<!-- Rules in this file are referenced by Claude Code during coding -->
 
-<!-- ルールは開発中に追記していきます -->
+<!-- Rules will be added during development -->
