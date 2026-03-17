@@ -12,9 +12,11 @@ TypeScript script template for Node.js v22+ / ESM. Built as a CLI-executable scr
 src/
   index.ts          # CLI entry point
   entities/          # Type definitions & zod schemas (domain models)
+  gateways/          # I/O with external data sources (API, DB, CSV, etc.)
   libs/              # Implementation (organized by feature subdirectories)
 ```
 
 - `entities/` contains only data structure definitions (no logic)
+- `gateways/` handles I/O with external data sources (API, DB, CSV files, etc.), organized by concern into subdirectories (e.g., `gateways/api/`, `gateways/csv/`)
 - `libs/` contains implementations, organized by concern into subdirectories (e.g., `libs/csv/`, `libs/masking/`)
 - Test files are co-located with their source files (`foo.ts` → `foo.test.ts`)
