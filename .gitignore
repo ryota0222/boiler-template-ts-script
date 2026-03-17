@@ -4,3 +4,4 @@ coverage/
 .vitest-build/
 *.tsbuildinfo
 tmp
+.DS_Store
