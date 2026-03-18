@@ -14,39 +14,82 @@ All tests must follow the AAA (Arrange-Act-Assert) pattern.
 - **Arrange**: Set up test data and preconditions (may be omitted if unnecessary)
 - **Act**: Execute the code under test
 - **Assert**: Verify expected results
-- Separate each section with a **blank line**
+- **ALWAYS** separate each section with a **blank line**, even when Arrange is omitted (Act and Assert must still be separated by a blank line)
 
 ```typescript
-it('returns masked string when given 10-digit input', () => {
-  // Arrange
+// Good: all three sections with blank lines
+it('10桁の入力を渡した場合、末尾3桁以外がマスクされること', () => {
   const input = '1234567890';
 
-  // Act
   const actual = maskString(input);
 
-  // Assert
   const expected = '*******890';
   expect(actual).toBe(expected);
+});
+
+// Good: no Arrange, blank line between Act and Assert
+it('"15:30:00"のように2桁の時間を渡した場合、パースが成功すること', () => {
+  const actual = schema.safeParse('15:30:00');
+
+  const expected = true;
+  expect(actual.success).toBe(expected);
+});
+
+// Bad: no blank line between Act and Assert
+it('...', () => {
+  const actual = schema.safeParse('15:30:00');
+  const expected = true;
+  expect(actual.success).toBe(expected);
 });
 ```
 
 ## One Test, One Assertion
 
-Each test verifies only one behavior.
+Each test verifies exactly one thing with one `expect()` call.
+
+## Test Only Branches
+
+Only write tests for code branches (if/else, switch, ternary, early return). Do not write tests that merely verify string content or output format unless a branch determines the content.
+
+```typescript
+// Good: tests a branch (project === '-')
+it('Projectが空の場合、1件の警告を返すこと', () => {
+  const actual = checkRequiredFields([makeEntry({ project: '-' })]).length;
+
+  const expected = 1;
+  expect(actual).toBe(expected);
+});
+
+// Bad: no branch tested — just verifying string content
+it('Projectが空の場合、警告メッセージにメンバー名を含むこと', () => {
+  const actual = checkRequiredFields([makeEntry({ project: '-' })])[0]?.text;
+
+  expect(actual).toContain('田中');
+});
+```
 
 ## `toBe` / `toEqual` Rules
 
 - Store the Act result in an **`actual`** variable (`result`, `output`, `ret`, etc. are not allowed)
+- **`actual` must hold the final value being asserted.** Never access properties on `actual` inside `expect()`. Extract the target value in the Act step.
 - Store the expected value in an **`expected`** variable
 - Use the form `expect(actual).toBe(expected)` or `expect(actual).toEqual(expected)`
 - **Never pass literals directly** to `toBe()` / `toEqual()`
 
 ```typescript
-// Good
-const expected = '*******5678';
+// Good: actual holds the final value
+const actual = schema.safeParse('0:30:00').success;
+
+const expected = true;
 expect(actual).toBe(expected);
 
-// Bad
+// Bad: accessing property on actual inside expect
+const actual = schema.safeParse('0:30:00');
+
+const expected = true;
+expect(actual.success).toBe(expected);
+
+// Bad: using non-standard variable name
 expect(result).toBe('*******5678');
 ```
 
@@ -66,18 +109,31 @@ src/
 
 ## `describe` Structure
 
+- The first argument of `describe` must be the exact exported name being tested (function name, variable name, etc.)
 - Create separate `describe` blocks for each function in the source
 - **No single-test `describe`**: If a `describe` contains only one test, it is unnecessary. Write the test directly in the parent `describe` or at the top level
 
+```typescript
+// Good: exact export name
+describe('schema', () => { ... });
+describe('checkRequiredFields', () => { ... });
+
+// Bad: label-style description
+describe('resultMessage schema', () => { ... });
+describe('duration schema', () => { ... });
+```
+
 ## Test Names
 
-Write **descriptive names in Japanese** that clearly state "what" and "expected outcome".
+Write descriptive names in Japanese using the format **「〇〇の場合、△△であること」** (condition → expected outcome).
 
 ```typescript
 // Good
-it('入力が空文字の場合、空文字を返す', () => { ... });
+it('入力が空文字の場合、空文字を返すこと', () => { ... });
+it('"15:30:00"のように2桁の時間を渡した場合、パースが成功すること', () => { ... });
 
-// Bad
+// Bad: missing condition or outcome format
+it('空文字を返す', () => { ... });
 it('empty test', () => { ... });
 ```
 
