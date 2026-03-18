@@ -1,4 +1,5 @@
 import eslint from '@eslint/js';
+import checkFile from 'eslint-plugin-check-file';
 import { defineConfig } from 'eslint/config';
 import perfectionist from 'eslint-plugin-perfectionist';
 import tseslint from 'typescript-eslint';
@@ -82,6 +83,17 @@ export default defineConfig(
             ':matches(FunctionDeclaration, FunctionExpression, ArrowFunctionExpression) > :matches(Identifier[optional=true], AssignmentPattern)',
         },
       ],
+    },
+  },
+  {
+    plugins: { 'check-file': checkFile },
+    rules: {
+      'check-file/filename-naming-convention': [
+        'error',
+        { '**/*.ts': 'CAMEL_CASE' },
+        { ignoreMiddleExtensions: true },
+      ],
+      'check-file/folder-naming-convention': ['error', { 'src/**/': 'KEBAB_CASE' }],
     },
   },
   {
