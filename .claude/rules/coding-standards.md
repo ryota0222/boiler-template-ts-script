@@ -7,8 +7,22 @@ description: Coding best practices (code quality, error handling, performance, l
 ## Code Quality
 
 - Use meaningful variable and function names that convey purpose
-- Document public APIs with clear comments
 - No abbreviations except widely known ones (e.g., ID, URL)
+- **NEVER write comments that explain WHAT the code does.** Code must be self-explanatory through naming and structure. Comments are ONLY permitted when explaining WHY — the non-obvious reason or intent behind a decision that cannot be expressed through code alone. JSDoc (`/** */`), inline (`//`), and block (`/* */`) comments are all subject to this rule. If you feel the need to explain what code does, rewrite the code to be clearer instead of adding a comment.
+
+  ```typescript
+  // FORBIDDEN: explains what (obvious from the code)
+  /** H:MM:SS 形式の時間文字列（時は1〜2桁） */
+  export const schema = z.string().regex(/^\d{1,2}:\d{2}:\d{2}$/);
+
+  // FORBIDDEN: explains what
+  // エントリをメンバーごとにグルーピングする
+  const grouped = groupBy(entries, (e) => e.member);
+
+  // ALLOWED: explains why (non-obvious business reason)
+  // Toggl CSV では未設定値がハイフンで表現されるため
+  if (entry.project === '-') { ... }
+  ```
 
   ```typescript
   // Good
