@@ -48,5 +48,6 @@ Do not test zod's built-in behavior. Only test **custom constraints** you have a
 - `z.string()` → no test needed (testing zod itself)
 - `z.string().nullable()` → test that `null` is accepted
 - `z.number().int()` → test that decimals are rejected
+- `z.enum(['OK', 'WARN'])` → test both accepted and rejected values (restricts allowed values)
 - `z.object({...}).readonly()` → no test needed for readonly
 - Custom `.refine()` / `.transform()` → always test
