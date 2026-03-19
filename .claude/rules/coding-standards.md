@@ -7,7 +7,7 @@ description: Coding best practices (code quality, error handling, performance, l
 ## Code Quality
 
 - Use meaningful variable and function names that convey purpose
-- No abbreviations except widely known ones (e.g., ID, URL)
+- No abbreviations except widely known ones (e.g., ID, URL) — applies to variable names, function names, and directory names
 - **NEVER write comments that explain WHAT the code does.** Code must be self-explanatory through naming and structure. Comments are ONLY permitted when explaining WHY — the non-obvious reason or intent behind a decision that cannot be expressed through code alone. JSDoc (`/** */`), inline (`//`), and block (`/* */`) comments are all subject to this rule. If you feel the need to explain what code does, rewrite the code to be clearer instead of adding a comment.
 
   ```typescript
@@ -114,6 +114,19 @@ description: Coding best practices (code quality, error handling, performance, l
   // Bad: conditional logic in index.ts
   if (process.argv[2] === '--dry-run') { ... }
   ```
+
+## Internal Directory Placement
+
+Place each `internal/` directory directly under the module directory it belongs to, not under any ancestor directory shared by multiple modules.
+
+```typescript
+// Good: formatPrefix belongs to inspection-output, so internal/ lives there
+// src/presenters/inspection-output/internal/formatPrefix.ts
+
+// Bad: internal/ placed at a shared ancestor, leaking to siblings
+// src/presenters/internal/formatPrefix.ts
+// src/internal/formatPrefix.ts
+```
 
 ## Additional Rules
 
