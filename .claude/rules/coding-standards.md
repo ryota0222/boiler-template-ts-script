@@ -128,6 +128,26 @@ Place each `internal/` directory directly under the module directory it belongs 
 // src/internal/formatPrefix.ts
 ```
 
+## ESLint Disable Comments
+
+When suppressing an ESLint rule with `// eslint-disable-next-line` or `/* eslint-disable */`, always add a Japanese comment on the line above explaining why the rule is being disabled.
+
+```typescript
+// Good
+// ANSIエスケープコード（\u001b）はターミナルカラー除去のために意図的に使用
+// eslint-disable-next-line no-control-regex
+const stripped = output.replace(/\u001b\[[0-9;]*m/g, '');
+
+// RGB値は本質的に数値であり定数として定義している
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+const from: [number, number, number] = [255, 120, 200];
+/* eslint-enable @typescript-eslint/no-magic-numbers */
+
+// Bad: no reason given
+// eslint-disable-next-line no-control-regex
+const stripped = output.replace(/\u001b\[[0-9;]*m/g, '');
+```
+
 ## Additional Rules
 
 - Follow all rule files under `docs/rules/` (except `template.md`)
