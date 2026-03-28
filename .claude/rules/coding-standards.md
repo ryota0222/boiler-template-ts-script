@@ -7,7 +7,7 @@ description: Coding best practices (code quality, error handling, performance, l
 ## Code Quality
 
 - Use meaningful variable and function names that convey purpose
-- No abbreviations except widely known ones (e.g., ID, URL) — applies to variable names, function names, and directory names
+- No abbreviations except widely known ones (e.g., ID, URL) — applies to variable names, function names, and directory names. Widely known abbreviations must always be fully uppercased (e.g., `userID` not `userId`, `parseURL` not `parseUrl`)
 - **NEVER write comments that explain WHAT the code does.** Code must be self-explanatory through naming and structure. Comments are ONLY permitted when explaining WHY — the non-obvious reason or intent behind a decision that cannot be expressed through code alone. JSDoc (`/** */`), inline (`//`), and block (`/* */`) comments are all subject to this rule. If you feel the need to explain what code does, rewrite the code to be clearer instead of adding a comment.
 
   ```typescript
@@ -20,8 +20,8 @@ description: Coding best practices (code quality, error handling, performance, l
   const grouped = groupBy(entries, (e) => e.member);
 
   // ALLOWED: explains why (non-obvious business reason)
-  // Toggl CSV では未設定値がハイフンで表現されるため
-  if (entry.project === '-') { ... }
+  // eslint-disable-next-line no-inline-comments
+  if (entry.project === '-') { ... } // Toggl CSV では未設定値がハイフンで表現されるため
   ```
 
   ```typescript
@@ -95,24 +95,22 @@ description: Coding best practices (code quality, error handling, performance, l
 
 ## Language Policy
 
-- CLI output messages, code comments, test names, and commit messages must be written in Japanese
+- UI messages and console output, code comments, test names, and commit messages must be written in Japanese
 - Rule files (`.claude/rules/`, `docs/rules/`) must be written in English
 
-## CLI Entry Point Constraints
+## App Router Entry Constraints
 
-- No conditional logic (`if`, `switch`, ternary) in the entry point (`index.ts`)
-- Extract conditional logic into separate files as functions
-- Entry point is limited to function calls, `console.log`, and `process.exit`
+- App Router convention files (layout.tsx, page.tsx, loading.tsx, error.tsx, not-found.tsx) should contain only component exports
+- Extract complex logic into separate files in `helpers/`, `features/`, or `shared-components/`
+- These files should remain thin wrappers
 
   ```typescript
-  // Good: index.ts
-  import { run } from '@/libs/runner/run';
-  const result = await run();
-  console.log(result);
-  process.exit(0);
+  // Good: layout.tsx
+  import { AppLayout } from '@/shared-components/appLayout';
 
-  // Bad: conditional logic in index.ts
-  if (process.argv[2] === '--dry-run') { ... }
+  export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
+    return <AppLayout>{children}</AppLayout>;
+  }
   ```
 
 ## Internal Directory Placement
