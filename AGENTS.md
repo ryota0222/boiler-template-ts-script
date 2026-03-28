@@ -20,3 +20,21 @@ src/
 - `gateways/` handles I/O with external data sources (API, DB, CSV files, etc.), organized by concern into subdirectories (e.g., `gateways/api/`, `gateways/csv/`)
 - `libs/` contains implementations, organized by concern into subdirectories (e.g., `libs/csv/`, `libs/masking/`)
 - Test files are co-located with their source files (`foo.ts` → `foo.test.ts`)
+
+## Git Branch Naming
+
+- Feature branches: `feature/<kebab-case-name>` (e.g. `feature/supabase-integration`)
+- Bug fix branches: `fix/<kebab-case-name>` (e.g. `fix/login-redirect`)
+- Chore branches: `chore/<kebab-case-name>` (e.g. `chore/update-dependencies`)
+
+## Subagent Workflow
+
+PostToolUse hooks (lint, test) do not run inside subagents. After each subagent task completes, the main session MUST run verification before committing:
+
+1. Subagent reports task complete
+2. Main session: `npm run lint`
+3. Main session: `npm test`
+4. Fix any errors found
+5. Commit
+
+Do NOT batch verification to the end — check after every task.
