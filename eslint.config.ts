@@ -60,6 +60,7 @@ export default defineConfig(
       complexity: ['error', { max: 10 }],
       'func-style': ['error', 'expression'],
       'max-params': ['error', { max: 1 }],
+      'no-undefined': 'error',
       'no-restricted-imports': [
         'error',
         {
