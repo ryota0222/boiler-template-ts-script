@@ -115,3 +115,19 @@ npm run dev
 - **Git Hooks**: lefthook + commitlint
 - **Static Analysis**: knip (未使用コード検出) + dependency-cruiser (依存ルール)
 - **AI**: Claude Code (rules, hooks, settings)
+
+## オプション
+
+### Effect
+
+複雑なエラーハンドリング・依存性注入・並行処理が必要な場合に検討。
+
+```bash
+npm install effect
+```
+
+- 型安全なエラー（`Effect<Success, Error, Requirements>`）
+- `Context` / `Layer` による依存性注入
+- `Effect.Schema` で Zod を置き換え可能
+- 全面採用が前提（async/await との混在は非推奨）
+- 公式: [effect.website](https://effect.website/)
