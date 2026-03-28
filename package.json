@@ -31,6 +31,9 @@
   "knip": {
     "ignoreBinaries": [
       "actionlint"
+    ],
+    "ignoreDependencies": [
+      "@commitlint/cli"
     ]
   },
   "devDependencies": {
