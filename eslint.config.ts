@@ -3,6 +3,7 @@ import checkFile from 'eslint-plugin-check-file';
 import { defineConfig } from 'eslint/config';
 import perfectionist from 'eslint-plugin-perfectionist';
 import tseslint from 'typescript-eslint';
+import noNestedIf from './eslint-rules/noNestedIf.js';
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -15,13 +16,20 @@ export default defineConfig(
     },
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['eslint-rules/*.ts'],
+        },
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
     ignores: ['node_modules/', 'dist/', 'coverage/', '*.config.ts'],
+  },
+  {
+    plugins: {
+      local: { rules: { 'no-nested-if': noNestedIf } },
+    },
   },
   {
     rules: {
@@ -58,6 +66,7 @@ export default defineConfig(
       ],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       complexity: ['error', { max: 10 }],
+      'local/no-nested-if': 'error',
       'func-style': ['error', 'expression'],
       'max-params': ['error', { max: 1 }],
       'no-undefined': 'error',
@@ -104,6 +113,12 @@ export default defineConfig(
       '@typescript-eslint/consistent-type-assertions': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
+    },
+  },
+  {
+    files: ['eslint-rules/**/*.ts'],
+    rules: {
+      'no-restricted-imports': 'off',
     },
   }
 );
