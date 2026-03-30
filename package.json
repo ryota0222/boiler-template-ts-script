@@ -33,7 +33,8 @@
       "actionlint"
     ],
     "ignoreDependencies": [
-      "@commitlint/cli"
+      "@commitlint/cli",
+      "lefthook"
     ]
   },
   "devDependencies": {
