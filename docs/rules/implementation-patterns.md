@@ -4,7 +4,7 @@
 
 ## File Naming
 
-- **Type**: MUST (use noun-based names); MUST NOT (use verb-based names)
+- **Type**: MUST NOT
 - **Reason**: Verb-based names mirror a single function and collapse when a second related function is added; noun-based names represent the concern the file owns and accommodate growth without renaming.
 
 ### Details
