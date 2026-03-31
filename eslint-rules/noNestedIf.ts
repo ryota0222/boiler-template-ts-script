@@ -25,7 +25,9 @@ const noNestedIf: Rule.RuleModule = {
             context.report({ messageId: 'noNestedIf', node });
             return;
           }
-          if (!ancestor.parent) return;
+          if (!ancestor.parent) {
+            return;
+          }
           ancestor = ancestor.parent;
         }
       },
