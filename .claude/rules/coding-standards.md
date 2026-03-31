@@ -8,6 +8,18 @@ description: Coding best practices (code quality, error handling, performance, l
 
 - Use meaningful variable and function names that convey purpose
 - No abbreviations except widely known ones (e.g., ID, URL) — applies to variable names, function names, and directory names. Widely known abbreviations must always be fully uppercased (e.g., `userID` not `userId`, `parseURL` not `parseUrl`)
+- Do NOT use `default` as a prefix for verb-phrase identifiers. `default` is an adjective and must precede a noun, not a verb. To name a default implementation, either use `default` before a noun or restructure the name to avoid the prefix entirely.
+
+  ```typescript
+  // Good — default modifies a noun
+  const defaultAgent = createDataAgent();
+  const dataAgentByDefault = createDataAgent();
+
+  // Bad — default precedes a verb phrase (grammatically incorrect)
+  const defaultGetDataAgent = createDataAgent();
+  const defaultPrintResult = (result: Result) => { ... };
+  ```
+
 - Boolean variable names MUST use a prefix that expresses behavior or state:
 
   | Pattern               | Examples                     |
