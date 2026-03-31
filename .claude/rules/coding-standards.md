@@ -39,6 +39,26 @@ description: Coding best practices (code quality, error handling, performance, l
   const dryRun = options.dryRun;
   ```
 
+- File names must be noun-based (representing the concept or concern they own); verb-based file names are forbidden. Follow layer suffix conventions (`*Gateway`, `*Parser`, `*Formatter`, etc.).
+
+  | Before (verb-based) | After (noun-based)    |
+  | ------------------- | --------------------- |
+  | `getDataAgent.ts`   | `dataAgentGateway.ts` |
+  | `fetchUser.ts`      | `userGateway.ts`      |
+  | `parseConfig.ts`    | `configParser.ts`     |
+  | `formatDate.ts`     | `dateFormatter.ts`    |
+
+  ```typescript
+  // Good
+  // src/gateways/api/dataAgentGateway.ts
+  export function getDataAgent() { ... }
+  export function updateDataAgent() { ... }
+
+  // Bad
+  // src/gateways/api/getDataAgent.ts
+  export function getDataAgent() { ... }
+  ```
+
 - **NEVER write comments that explain WHAT the code does.** Code must be self-explanatory through naming and structure. Comments are ONLY permitted when explaining WHY — the non-obvious reason or intent behind a decision that cannot be expressed through code alone. JSDoc (`/** */`), inline (`//`), and block (`/* */`) comments are all subject to this rule. If you feel the need to explain what code does, rewrite the code to be clearer instead of adding a comment.
 
   ```typescript
@@ -123,26 +143,6 @@ description: Coding best practices (code quality, error handling, performance, l
 
 - Avoid synchronous blocking operations; use async I/O
 - Prevent memory leaks by cleaning up object references and event listeners
-
-## Language Policy
-
-- UI messages and console output, code comments, test names, and commit messages must be written in Japanese
-- Rule files (`.claude/rules/`, `docs/rules/`) must be written in English
-
-## App Router Entry Constraints
-
-- App Router convention files (layout.tsx, page.tsx, loading.tsx, error.tsx, not-found.tsx) should contain only component exports
-- Extract complex logic into separate files in `helpers/`, `features/`, or `shared-components/`
-- These files should remain thin wrappers
-
-  ```typescript
-  // Good: layout.tsx
-  import { AppLayout } from '@/shared-components/appLayout';
-
-  export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
-    return <AppLayout>{children}</AppLayout>;
-  }
-  ```
 
 ## Internal Directory Placement
 
