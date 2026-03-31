@@ -40,7 +40,7 @@ body:
       label: 環境
       description: 関連する環境情報を記述してください
       placeholder: |
-        - Node.js: v22.x.x
+        - Node.js: v24.x.x
         - OS: macOS xx.x
     validations:
       required: false

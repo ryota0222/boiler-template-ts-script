@@ -4,7 +4,7 @@ This file provides guidance to LLM agents when working with code in this reposit
 
 ## Project Overview
 
-TypeScript script template for Node.js v22+ / ESM. Built as a CLI-executable script with tsup.
+TypeScript script template for Node.js v24+ / ESM. Built as a CLI-executable script with tsup.
 
 ## Directory Structure
 

@@ -7,7 +7,7 @@ TypeScript スクリプト開発用のボイラープレートテンプレート
 | ツール  | バージョン | 備考                 |
 | ------- | ---------- | -------------------- |
 | mise    | 最新       | バージョン管理ツール |
-| Node.js | 22.x       | `.mise.toml` で管理  |
+| Node.js | 24.x       | `.mise.toml` で管理  |
 | npm     | 10.x       | Node.js に同梱       |
 
 ## セットアップ
@@ -106,7 +106,7 @@ npm run dev
 
 ## 技術スタック
 
-- **Runtime**: Node.js v22+ (ESM)
+- **Runtime**: Node.js v24+ (ESM)
 - **Language**: TypeScript 5.x (strict mode)
 - **Build**: tsup
 - **Test**: Vitest + v8 coverage
