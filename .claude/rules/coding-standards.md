@@ -124,26 +124,6 @@ description: Coding best practices (code quality, error handling, performance, l
 - Avoid synchronous blocking operations; use async I/O
 - Prevent memory leaks by cleaning up object references and event listeners
 
-## Language Policy
-
-- UI messages and console output, code comments, test names, and commit messages must be written in Japanese
-- Rule files (`.claude/rules/`, `docs/rules/`) must be written in English
-
-## App Router Entry Constraints
-
-- App Router convention files (layout.tsx, page.tsx, loading.tsx, error.tsx, not-found.tsx) should contain only component exports
-- Extract complex logic into separate files in `helpers/`, `features/`, or `shared-components/`
-- These files should remain thin wrappers
-
-  ```typescript
-  // Good: layout.tsx
-  import { AppLayout } from '@/shared-components/appLayout';
-
-  export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
-    return <AppLayout>{children}</AppLayout>;
-  }
-  ```
-
 ## Internal Directory Placement
 
 Place each `internal/` directory directly under the module directory it belongs to, not under any ancestor directory shared by multiple modules.
