@@ -4,11 +4,8 @@
 
 ## File Naming
 
-- **Type**: MUST NOT
-- **Reason**: A verb-based file name mirrors a single function and breaks down as soon as a
-  second related function is added — there is no natural name for both to share. A noun-based
-  name represents the concern the file owns, so related functions can grow inside it without
-  requiring a rename.
+- **Type**: MUST (use noun-based names); MUST NOT (use verb-based names)
+- **Reason**: Verb-based names mirror a single function and collapse when a second related function is added; noun-based names represent the concern the file owns and accommodate growth without renaming.
 
 ### Details
 
@@ -29,6 +26,6 @@ export function getDataAgent() { ... }
 export function updateDataAgent() { ... }
 
 // Bad
-// src/gateways/api/getDataAgent.ts  ← verb-based; breaks when a second function is added
+// src/gateways/api/getDataAgent.ts
 export function getDataAgent() { ... }
 ```
