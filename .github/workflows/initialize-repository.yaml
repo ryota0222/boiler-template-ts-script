@@ -51,3 +51,14 @@ jobs:
             'NR==1{print title} NR==2{print desc} NR>2{print}' \
             README.md > README.md.tmp
           mv README.md.tmp README.md
+
+      - name: Delete this workflow and commit changes
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/initialize-repository.yaml
+          git add package.json README.md
+          git commit -m "chore: initialize repository from template"
+          git push
