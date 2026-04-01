@@ -54,6 +54,8 @@
       "Write(./.env.*)",
       "Read(./**/.env)",
       "Read(./**/.env.*)",
+      "Write(docs/superpowers/**)",
+      "Edit(docs/superpowers/**)",
       "Read(/secrets/**)",
       "Edit(/secrets/**)",
       "Write(/secrets/**)",
