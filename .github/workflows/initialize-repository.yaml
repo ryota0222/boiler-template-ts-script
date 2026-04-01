@@ -1,0 +1,21 @@
+name: Initialize Repository
+
+on: push
+
+jobs:
+  initialize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Check if initialization is needed
+        id: check
+        run: |
+          CURRENT_NAME=$(jq -r '.name' package.json)
+          if [ "$CURRENT_NAME" = "ts-script-template" ]; then
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          fi
