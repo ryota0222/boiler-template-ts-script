@@ -1,5 +1,5 @@
 {
-  "name": "ts-script-template",
+  "name": "boiler-template-ts-script",
   "version": "0.0.1",
   "description": "",
   "type": "module",
@@ -22,7 +22,7 @@
     "dev": "tsx src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "ryota0222",
   "license": "UNLICENSED",
   "private": true,
   "imports": {
