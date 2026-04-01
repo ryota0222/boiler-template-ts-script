@@ -7,6 +7,7 @@ permissions: {}
 jobs:
   initialize:
     runs-on: ubuntu-latest
+    if: ${{ !github.event.repository.is_template }}
     permissions:
       contents: write
     steps:
