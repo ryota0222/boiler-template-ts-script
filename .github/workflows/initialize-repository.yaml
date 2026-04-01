@@ -60,6 +60,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git rm .github/workflows/initialize-repository.yaml
+          git rm .github/dependabot.yml
           git add package.json README.md
           git commit -m "chore: initialize repository from template"
           git push
