@@ -48,7 +48,7 @@ jobs:
             DESCRIPTION="$REPO_DESCRIPTION"
           fi
           awk -v title="# $REPO_NAME" -v desc="$DESCRIPTION" \
-            'NR==1{print title} NR==2{print desc} NR>2{print}' \
+            'NR==1{print title} NR==3{print desc} NR!=1 && NR!=3{print}' \
             README.md > README.md.tmp
           mv README.md.tmp README.md
 
