@@ -15,6 +15,7 @@ jobs:
       - name: Check if initialization is needed
         id: check
         run: |
+          set -euo pipefail
           CURRENT_NAME=$(jq -r '.name' package.json)
           if [ "$CURRENT_NAME" = "ts-script-template" ]; then
             echo "needed=true" >> "$GITHUB_OUTPUT"
@@ -28,6 +29,7 @@ jobs:
           REPO_NAME: ${{ github.event.repository.name }}
           REPO_OWNER: ${{ github.event.repository.owner.login }}
         run: |
+          set -euo pipefail
           jq --arg name "$REPO_NAME" --arg author "$REPO_OWNER" \
             '.name = $name | .author = $author' \
             package.json > package.json.tmp
