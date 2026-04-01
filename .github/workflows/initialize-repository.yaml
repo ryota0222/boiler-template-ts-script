@@ -2,6 +2,8 @@ name: Initialize Repository
 
 on: push
 
+permissions: {}
+
 jobs:
   initialize:
     runs-on: ubuntu-latest
