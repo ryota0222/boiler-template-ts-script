@@ -10,16 +10,36 @@ TypeScript script template for Node.js v24+ / ESM. Built as a CLI-executable scr
 
 ```text
 src/
-  index.ts          # CLI entry point
-  entities/          # Type definitions & zod schemas (domain models)
-  gateways/          # I/O with external data sources (API, DB, CSV, etc.)
-  libs/              # Implementation (organized by feature subdirectories)
+  index.ts          # CLI entry point — calls Controller
+  entities/         # Type definitions & Zod schemas (domain models, no logic)
+  gateways/         # I/O with external data sources (API, DB, CSV, etc.)
+  controllers/      # Receives input and calls Usecase
+  usecases/         # Business logic
+  presenters/       # Converts Usecase results into output format
+  libs/             # Cross-cutting utilities (accessible from any layer)
 ```
 
 - `entities/` contains only data structure definitions (no logic)
 - `gateways/` handles I/O with external data sources (API, DB, CSV files, etc.), organized by concern into subdirectories (e.g., `gateways/api/`, `gateways/csv/`)
-- `libs/` contains implementations, organized by concern into subdirectories (e.g., `libs/csv/`, `libs/masking/`)
+- `controllers/` parses input (CLI args, stdin) and invokes the appropriate Usecase
+- `usecases/` orchestrates business logic; calls Gateways and returns results
+- `presenters/` formats Usecase output for display (stdout, file, etc.)
+- `libs/` provides cross-cutting utilities with no layer affiliation; any layer may import from it
 - Test files are co-located with their source files (`foo.ts` → `foo.test.ts`)
+
+## Dependency Direction
+
+```text
+index.ts → Controller → Usecase → Gateway / Entities
+                              ↓
+                         Presenter
+                              ↑
+                    libs/ (any layer may use)
+```
+
+- Dependencies flow inward: outer layers depend on inner layers, not the reverse
+- `entities/` and `usecases/` must not depend on `gateways/` or `presenters/`
+- `libs/` provides utilities with no layer affiliation; any layer may import from it
 
 ## Git Branch Naming
 
