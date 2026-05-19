@@ -7,7 +7,10 @@ FILE_PATH=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // empty')
 [ -z "$FILE_PATH" ] && exit 0
 [ -f "$FILE_PATH" ] || exit 0
 
-cd "$CLAUDE_PROJECT_DIR" || exit 0
+if [ -z "$CLAUDE_PROJECT_DIR" ] || ! cd "$CLAUDE_PROJECT_DIR"; then
+  echo "CLAUDE_PROJECT_DIR が未設定のため、シークレット検査をスキップしました。" >&2
+  exit 0
+fi
 
 if [ ! -x node_modules/.bin/secretlint ]; then
   echo "secretlint が未インストールのため、シークレット検査をスキップしました。'npm install' を実行してください。" >&2
