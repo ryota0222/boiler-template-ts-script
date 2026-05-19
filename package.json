@@ -20,6 +20,7 @@
     "lint:md": "markdownlint-cli2",
     "lint:actions": "actionlint",
     "scan:secretlint": "secretlint --secretlintignore .gitignore \"**/*\"",
+    "scan:gitleaks": "gitleaks git --redact --no-banner",
     "dev": "tsx src/index.ts"
   },
   "keywords": [],
@@ -31,7 +32,8 @@
   },
   "knip": {
     "ignoreBinaries": [
-      "actionlint"
+      "actionlint",
+      "gitleaks"
     ],
     "ignoreDependencies": [
       "@commitlint/cli",

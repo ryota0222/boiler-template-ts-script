@@ -1,3 +1,4 @@
 [tools]
 node = "24"
 actionlint = "1.7"
+gitleaks = "8"
