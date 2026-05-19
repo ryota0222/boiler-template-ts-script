@@ -65,6 +65,9 @@ npm run dev
 | `npm run lint`          | ESLint 実行                |
 | `npm run format`        | Prettier チェック          |
 | `npm run format:fix`    | Prettier 自動修正          |
+| `npm run lint:sh`       | ShellCheck 実行            |
+| `npm run format:sh`     | shfmt フォーマットチェック |
+| `npm run format:sh:fix` | shfmt 自動修正             |
 | `npm run test`          | テスト実行                 |
 | `npm run test:watch`    | テスト (watch モード)      |
 | `npm run test:coverage` | カバレッジ付きテスト       |
@@ -98,11 +101,11 @@ npm run dev
 
 ## Git Hooks
 
-| フック     | チェック内容                             |
-| ---------- | ---------------------------------------- |
-| pre-commit | lint, format, typecheck, knip, depcruise |
-| commit-msg | commitlint (Conventional Commits)        |
-| pre-push   | vitest                                   |
+| フック     | チェック内容                                                                                    |
+| ---------- | ----------------------------------------------------------------------------------------------- |
+| pre-commit | lint, format, typecheck, knip, depcruise, markdownlint, actionlint, shellcheck, shfmt, gitleaks |
+| commit-msg | commitlint (Conventional Commits)                                                               |
+| pre-push   | vitest                                                                                          |
 
 ## 技術スタック
 
