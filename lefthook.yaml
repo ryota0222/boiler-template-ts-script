@@ -19,6 +19,8 @@ pre-commit:
     - name: actionlint
       glob: '.github/workflows/*.yaml'
       run: actionlint {staged_files}
+    - name: gitleaks
+      run: gitleaks git --pre-commit --staged --redact --no-banner
 
 commit-msg:
   jobs:
@@ -29,3 +31,5 @@ pre-push:
   jobs:
     - name: test
       run: npx vitest run
+    - name: gitleaks
+      run: npm run scan:gitleaks
