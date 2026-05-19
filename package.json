@@ -19,6 +19,9 @@
     "depcruise": "depcruise src/",
     "lint:md": "markdownlint-cli2",
     "lint:actions": "actionlint",
+    "lint:sh": "git ls-files --cached --others --exclude-standard '*.sh' | xargs shellcheck",
+    "format:sh": "git ls-files --cached --others --exclude-standard '*.sh' | xargs shfmt -i 2 -ci -bn -sr -d",
+    "format:sh:fix": "git ls-files --cached --others --exclude-standard '*.sh' | xargs shfmt -i 2 -ci -bn -sr -w",
     "scan:secretlint": "secretlint --secretlintignore .gitignore \"**/*\"",
     "scan:gitleaks": "gitleaks git --redact --no-banner",
     "dev": "tsx src/index.ts"
@@ -33,7 +36,9 @@
   "knip": {
     "ignoreBinaries": [
       "actionlint",
-      "gitleaks"
+      "gitleaks",
+      "shellcheck",
+      "shfmt"
     ],
     "ignoreDependencies": [
       "@commitlint/cli",
