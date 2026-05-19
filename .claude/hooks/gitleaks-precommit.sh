@@ -11,7 +11,7 @@ if [ -z "$CLAUDE_PROJECT_DIR" ] || ! cd "$CLAUDE_PROJECT_DIR"; then
   exit 0
 fi
 
-if ! command -v gitleaks >/dev/null 2>&1; then
+if ! command -v gitleaks > /dev/null 2>&1; then
   echo "gitleaks が未インストールのため、シークレット検査をスキップしました。'mise install' を実行してください。" >&2
   exit 0
 fi
