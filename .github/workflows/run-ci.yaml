@@ -43,6 +43,12 @@ jobs:
       - name: Actionlint
         run: npm run lint:actions
 
+      - name: ShellCheck
+        run: npm run lint:sh
+
+      - name: Shfmt
+        run: npm run format:sh
+
       - name: Test
         run: npm run test
 
