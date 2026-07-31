@@ -8,7 +8,7 @@ TypeScript スクリプト開発用のボイラープレートテンプレート
 | ------- | ---------- | ----------------------- |
 | mise    | 最新       | バージョン管理ツール    |
 | Node.js | 24.x       | `.mise.toml` で管理     |
-| pnpm    | 11.x       | `packageManager` で管理 |
+| pnpm    | 10.x       | `packageManager` で管理 |
 
 ## セットアップ
 
