@@ -62,6 +62,8 @@
       "Write(./.env.*)",
       "Read(./**/.env)",
       "Read(./**/.env.*)",
+      "Edit(./lefthook.yaml)",
+      "Write(./lefthook.yaml)",
       "Write(docs/superpowers/**)",
       "Edit(docs/superpowers/**)",
       "Read(/secrets/**)",
