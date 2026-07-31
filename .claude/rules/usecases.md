@@ -16,19 +16,25 @@ phrase that describes what it does (e.g. `greeting`). The orchestration itself l
 in that directory's `index.ts`, and exports a factory function that receives gateways and
 presenters.
 
-    src/usecases/
-      greeting/
-        index.ts
-        index.test.ts
-        gateways/
-        presenters/
+```text
+src/usecases/
+  greeting/
+    index.ts
+    index.test.ts
+    gateways/
+    presenters/
+```
 
-    // src/usecases/greeting/index.ts
-    export const createGreetingUsecase = ({ gateways, presenters }) => async () => ...
+```typescript
+// src/usecases/greeting/index.ts
+export const createGreetingUsecase = ({ gateways, presenters }) => async () => ...
+```
 
 Import the usecase by its directory, not by an explicit `/index` path:
 
-    import { createGreetingUsecase } from '@/usecases/greeting';
+```typescript
+import { createGreetingUsecase } from '@/usecases/greeting';
+```
 
 This `index.ts` is the defining file, not a re-export barrel, so it does not conflict with the
 "No re-exports via index.ts" rule in `.claude/rules/coding-standards.md`.
@@ -36,9 +42,11 @@ This `index.ts` is the defining file, not a re-export barrel, so it does not con
 When a usecase has exactly one operation, the factory returns that operation directly instead of
 wrapping it in an object with a single key:
 
-    export const createGreetingUsecase =
-      ({ gateways, presenters }) =>
-      async (): Promise<Either.Either<void, Error>> => ...
+```typescript
+export const createGreetingUsecase =
+  ({ gateways, presenters }) =>
+  async (): Promise<Either.Either<void, Error>> => ...
+```
 
 Return an object keyed by operation name only when there are two or more operations.
 
