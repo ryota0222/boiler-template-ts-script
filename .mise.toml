@@ -1,5 +1,6 @@
 [tools]
 node = "24"
+pnpm = "10"
 actionlint = "1.7"
 gitleaks = "8"
 shellcheck = "0.11"

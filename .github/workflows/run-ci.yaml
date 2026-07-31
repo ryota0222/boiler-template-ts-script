@@ -1,56 +1,63 @@
 name: CI
 
-on: push
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
-      - uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151
+      - uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4.2.1
         with:
           install: true
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - name: Secretlint
-        run: npm run scan:secretlint
+        run: pnpm run scan:secretlint
 
       - name: Gitleaks
-        run: npm run scan:gitleaks
+        run: pnpm run scan:gitleaks
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Format
-        run: npm run format
+        run: pnpm run format
 
       - name: Typecheck
-        run: npm run typecheck
+        run: pnpm run typecheck
 
       - name: Knip
-        run: npm run knip
+        run: pnpm run knip
 
       - name: Dependency cruiser
-        run: npm run depcruise
+        run: pnpm run depcruise
 
       - name: Markdownlint
-        run: npm run lint:md
+        run: pnpm run lint:md
 
       - name: Actionlint
-        run: npm run lint:actions
+        run: pnpm run lint:actions
 
       - name: ShellCheck
-        run: npm run lint:sh
+        run: pnpm run lint:sh
 
       - name: Shfmt
-        run: npm run format:sh
+        run: pnpm run format:sh
 
       - name: Test
-        run: npm run test
+        run: pnpm run test:coverage
 
       - name: Build
-        run: npm run build
+        run: pnpm run build

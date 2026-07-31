@@ -15,8 +15,8 @@ mise install
 ### 2. ビルド
 
 ```bash
-npm install
-npm run build
+pnpm install
+pnpm run build
 ```
 
 <!-- 必要に応じて追加の準備手順（環境変数の設定、認証情報の取得など）を記述 -->
@@ -78,4 +78,4 @@ node dist/index.js -o output.csv --verbose
 対処法:
 
 1. 設定を確認
-2. 依存関係を再インストール (`npm install`)
+2. 依存関係を再インストール (`pnpm install`)

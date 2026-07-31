@@ -12,34 +12,57 @@ TypeScript script template for Node.js v24+ / ESM. Built as a CLI-executable scr
 src/
   index.ts          # CLI entry point — calls Controller
   entities/         # Type definitions & Zod schemas (domain models, no logic)
-  gateways/         # I/O with external data sources (API, DB, CSV, etc.)
+  gateways/         # I/O with external data sources (API, file system, etc.)
   controllers/      # Receives input and calls Usecase
-  usecases/         # Business logic
+  usecases/         # Business logic; also defines gateway/presenter port types
   presenters/       # Converts Usecase results into output format
-  libs/             # Cross-cutting utilities (accessible from any layer)
+  utilities/        # Cross-cutting utilities (accessible from any layer)
 ```
 
 - `entities/` contains only data structure definitions (no logic)
-- `gateways/` handles I/O with external data sources (API, DB, CSV files, etc.), organized by concern into subdirectories (e.g., `gateways/api/`, `gateways/csv/`)
+- `gateways/` handles I/O with external data sources
 - `controllers/` parses input (CLI args, stdin) and invokes the appropriate Usecase
 - `usecases/` orchestrates business logic; calls Gateways and returns results
-- `presenters/` formats Usecase output for display (stdout, file, etc.)
-- `libs/` provides cross-cutting utilities with no layer affiliation; any layer may import from it
+- `usecases/<domain>/gateways/` and `usecases/<domain>/presenters/` contain **type
+  definitions only** — enforced by ESLint
+- `presenters/` formats Usecase output for display
+- `utilities/` provides cross-cutting utilities with no layer affiliation
 - Test files are co-located with their source files (`foo.ts` → `foo.test.ts`)
 
 ## Dependency Direction
 
 ```text
-index.ts → Controller → Usecase → Gateway / Entities
-                              ↓
-                         Presenter
-                              ↑
-                    libs/ (any layer may use)
+index.ts → Controller → Usecase → Entities
+                            ↑ port types only
+              Gateway / Presenter implement them
+                            ↑
+                   utilities/ (any layer may use)
 ```
 
 - Dependencies flow inward: outer layers depend on inner layers, not the reverse
-- `entities/` and `usecases/` must not depend on `gateways/` or `presenters/`
-- `libs/` provides utilities with no layer affiliation; any layer may import from it
+- `entities/` and `usecases/` must not depend on `gateways/` or `presenters/` implementations
+- zod may only be used in `entities/` and `gateways/` — enforced by dependency-cruiser
+- `internal/` directories are accessible only from the same parent directory — enforced by
+  dependency-cruiser
+
+## Commands
+
+This project uses **pnpm**, not npm. Never run `npm` or `npx`.
+
+| Command              | Purpose                          |
+| -------------------- | -------------------------------- |
+| `pnpm dev`           | Run `src/index.ts` directly      |
+| `pnpm build`         | Bundle to `dist/`                |
+| `pnpm test`          | Run unit tests                   |
+| `pnpm test:coverage` | Run tests with 100% threshold    |
+| `pnpm lint`          | ESLint                           |
+| `pnpm format`        | Prettier check                   |
+| `pnpm typecheck`     | `tsc --noEmit`                   |
+| `pnpm knip`          | Unused code/dependency detection |
+| `pnpm depcruise`     | Layer dependency rules           |
+| `pnpm lint:md`       | markdownlint                     |
+| `pnpm lint:actions`  | actionlint                       |
+| `pnpm lint:sh`       | shellcheck                       |
 
 ## Git Branch Naming
 
@@ -67,8 +90,8 @@ This repository runs a defense-in-depth setup to keep secrets (API keys, webhook
 | L4    | lefthook + `PreToolUse` hook → gitleaks                       | Staged files and git history                    |
 | L5    | `run-ci.yaml` steps                                           | The whole repository on every push              |
 
-- secretlint is configured in `.secretlintrc.json`; run it with `npm run scan:secretlint`.
-- gitleaks is installed via `mise`; run it with `npm run scan:gitleaks`.
+- secretlint is configured in `.secretlintrc.json`; run it with `pnpm run scan:secretlint`
+- gitleaks is installed via `mise`; run it with `pnpm run scan:gitleaks`
 - For false positives, add an allowlist to `.gitleaks.toml` (gitleaks) or a `.secretlintignore` file (secretlint). Neither file exists by default.
 
 ## Subagent Workflow
@@ -76,8 +99,8 @@ This repository runs a defense-in-depth setup to keep secrets (API keys, webhook
 PostToolUse hooks (lint, test) do not run inside subagents. After each subagent task completes, the main session MUST run verification before committing:
 
 1. Subagent reports task complete
-2. Main session: `npm run lint`
-3. Main session: `npm test`
+2. Main session: `pnpm lint`
+3. Main session: `pnpm test`
 4. Fix any errors found
 5. Commit
 

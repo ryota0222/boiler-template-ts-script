@@ -5,3 +5,4 @@ coverage/
 *.tsbuildinfo
 tmp
 .DS_Store
+.mise.local.toml
