@@ -2,12 +2,12 @@
 module.exports = {
   forbidden: [
     {
-      name: 'zod-only-in-entities',
-      comment: 'zodはentitiesディレクトリ内でのみ使用可能',
+      name: 'zod-only-in-entities-and-gateways',
+      comment: 'zodはentitiesとgatewaysディレクトリ内でのみ使用可能',
       severity: 'error',
       from: {
         path: '^src/',
-        pathNot: '^src/entities/',
+        pathNot: '^src/(entities|gateways)/',
       },
       to: {
         path: 'zod',
