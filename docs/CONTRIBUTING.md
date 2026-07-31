@@ -38,17 +38,17 @@ superpowers を用いて段階的に開発を行うこと。
 
 lefthook により以下のフックが自動実行される。
 
-| フック     | チェック内容                             |
-| ---------- | ---------------------------------------- |
-| pre-commit | lint, format, typecheck, knip, depcruise |
-| commit-msg | commitlint (Conventional Commits)        |
-| pre-push   | vitest                                   |
+| フック     | チェック内容                                                                                                                       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| pre-commit | lint, format, typecheck, knip, depcruise, markdownlint, actionlint, shellcheck, shfmt, gitleaks, eslint-disable / v8 ignore の検出 |
+| commit-msg | commitlint (Conventional Commits)                                                                                                  |
+| pre-push   | vitest (カバレッジ 100%), gitleaks                                                                                                 |
 
 `--no-verify` によるフックのスキップは禁止する。フックが失敗した場合は原因を修正すること。
 
 ## CI
 
-push 時に GitHub Actions で全チェック（lint, format, typecheck, knip, depcruise, test, build）が実行される。
+pull request 作成時および `main` への push 時に GitHub Actions で全チェック（secretlint, gitleaks, lint, format, typecheck, knip, depcruise, markdownlint, actionlint, shellcheck, shfmt, test（カバレッジ計測付き）, build）が実行される。
 
 ## ドキュメント
 
