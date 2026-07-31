@@ -25,6 +25,12 @@ pre-commit:
     - name: shfmt
       glob: '*.sh'
       run: shfmt -i 2 -ci -bn -sr -d {staged_files}
+    - name: no-eslint-disable
+      glob: 'src/**/*.ts'
+      run: "! grep -l 'eslint-disable' {staged_files}"
+    - name: no-v8-ignore
+      glob: 'src/**/*.ts'
+      run: "! grep -l 'v8 ignore' {staged_files}"
     - name: gitleaks
       run: gitleaks git --pre-commit --staged --redact --no-banner
 

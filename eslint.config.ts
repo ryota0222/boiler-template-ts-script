@@ -3,7 +3,6 @@ import checkFile from 'eslint-plugin-check-file';
 import { defineConfig } from 'eslint/config';
 import perfectionist from 'eslint-plugin-perfectionist';
 import tseslint from 'typescript-eslint';
-import noNestedIf from './eslint-rules/noNestedIf.js';
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -16,20 +15,13 @@ export default defineConfig(
     },
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: ['eslint-rules/*.ts'],
-        },
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
     ignores: ['node_modules/', 'dist/', 'coverage/', '*.config.ts'],
-  },
-  {
-    plugins: {
-      local: { rules: { 'no-nested-if': noNestedIf } },
-    },
   },
   {
     rules: {
@@ -68,8 +60,8 @@ export default defineConfig(
       'brace-style': ['error', '1tbs'],
       complexity: ['error', { max: 10 }],
       curly: 'error',
-      'local/no-nested-if': 'error',
       'func-style': ['error', 'expression'],
+      'max-depth': ['error', 1],
       'max-params': ['error', { max: 1 }],
       'no-undefined': 'error',
       'no-restricted-imports': [
@@ -118,9 +110,21 @@ export default defineConfig(
     },
   },
   {
-    files: ['eslint-rules/**/*.ts'],
+    files: ['src/usecases/*/gateways/**/*.ts', 'src/usecases/*/presenters/**/*.ts'],
     rules: {
-      'no-restricted-imports': 'off',
+      'no-restricted-syntax': [
+        'error',
+        {
+          message:
+            'このディレクトリには型定義のみを配置できます。値定義（const/function/class）は別ディレクトリに移動してください',
+          selector:
+            'ExportNamedDeclaration > :matches(VariableDeclaration, FunctionDeclaration, ClassDeclaration)',
+        },
+        {
+          message: 'このディレクトリには型定義のみを配置できます',
+          selector: 'ExportDefaultDeclaration',
+        },
+      ],
     },
   }
 );
