@@ -31,6 +31,11 @@ const sort = (airportArray: Airport[]): Airport[] =>
   sortBy(airportArray, (airport) => airport.sortIndex);
 ```
 
+Not every entity file needs a schema. A file that only derives values from other values — with no
+external data to validate — exports just its pure functions. `entities/greeting-source/greeting.ts`,
+which turns a validated source into a greeting string, is an example. Add a schema only when
+the file defines a data structure that crosses a boundary.
+
 ## No Logic in Entities
 
 Entities contain only:
