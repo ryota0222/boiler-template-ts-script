@@ -13,7 +13,7 @@ if [ -z "$CLAUDE_PROJECT_DIR" ] || ! cd "$CLAUDE_PROJECT_DIR"; then
 fi
 
 if [ ! -x node_modules/.bin/secretlint ]; then
-  echo "secretlint が未インストールのため、シークレット検査をスキップしました。'npm install' を実行してください。" >&2
+  echo "secretlint が未インストールのため、シークレット検査をスキップしました。'pnpm install' を実行してください。" >&2
   exit 0
 fi
 
