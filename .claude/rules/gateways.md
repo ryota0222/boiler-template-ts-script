@@ -37,6 +37,9 @@ Gateway interface types are defined in `src/usecases/<domain>/gateways/`, not in
 - Gateway file: `<domainConcept>.ts` (camelCase, no `Gateway` suffix)
 - Test file: `<domainConcept>.test.ts` (co-located)
 
+When the concept is an activity rather than a thing, name the agent (`greetingSourceReader.ts`),
+not the gerund — see "File Naming" in `.claude/rules/coding-standards.md`.
+
 ## Domain Types as Input, Domain Types as Output
 
 Gateways accept domain entity types from the usecase layer and convert them to external formats (SDK types, API payloads, etc.) internally. This keeps SDK implementation details hidden from the usecase layer.

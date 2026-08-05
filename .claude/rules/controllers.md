@@ -45,6 +45,22 @@ Do not write manual CLI parsing logic. Use `defineCommand` and `args` definition
 
 The `createCliCommand` function receives all external dependencies (gateways, presenters) as parameters. It does not import concrete implementations directly — the entry point (`index.ts`) provides them.
 
+Type each dependency slot with the port type from `usecases/<domain>/gateways|presenters/`. Never use
+`typeof <implementation>` — it binds the controller to the implementation's signature. For a factory
+slot, compose the port type inline instead of defining a named factory type: such a type is used in
+exactly one place, so "No single-use type definitions" in `.claude/rules/coding-standards.md`
+applies.
+
+```typescript
+// Good
+readonly createReadingGreetingSource: (filePath: string) => ReadGreetingSource;
+readonly printGreeting: PrintGreeting;
+
+// Bad
+readonly createReadingGreetingSource: typeof createReadingGreetingSource;
+readonly createReadingGreetingSource: CreateReadingGreetingSource;
+```
+
 ## No Business Logic in Controllers
 
 Controllers contain only:

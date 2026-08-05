@@ -69,6 +69,9 @@ This follows Clean Architecture: the inner layer (usecase) defines interfaces, t
 
 These directories must contain **only type definitions** (`type`, `interface`). Value-level exports (`const`, `function`, `class`, `default export`) are forbidden and enforced by ESLint (`no-restricted-syntax`). Runtime code belongs in the implementation layer (`src/gateways/`, `src/presenters/`).
 
+Define only the types the usecase itself receives. A factory type that only the controller uses does
+not belong here — see "Dependency Injection" in `.claude/rules/controllers.md`.
+
 ## No Direct I/O
 
 Usecases must not import from `src/gateways/` or `src/presenters/` implementation files. Only import interface types from `src/usecases/<domain>/gateways/` and `src/usecases/<domain>/presenters/`.

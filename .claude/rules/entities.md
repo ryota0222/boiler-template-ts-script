@@ -31,10 +31,43 @@ const sort = (airportArray: Airport[]): Airport[] =>
   sortBy(airportArray, (airport) => airport.sortIndex);
 ```
 
-Not every entity file needs a schema. A file that only derives values from other values — with no
-external data to validate — exports just its pure functions. `entities/greeting-source/greeting.ts`,
-which turns a validated source into a greeting string, is an example. Add a schema only when
-the file defines a data structure that crosses a boundary.
+Not every entity file needs a schema. Add one only when the file defines a data structure that
+crosses a boundary — an API response, a configuration value, an external code system. A structure
+computed inside the application is defined as a plain `type` with no schema, because there is
+nothing to validate. A file that only derives values from other values exports just its pure
+functions, with neither type nor schema; `entities/greeting-source/greeting.ts`, which turns a
+validated source into a greeting string, is an example.
+
+## Type Name Matches File Name
+
+The type an entity file exports must be the PascalCase form of that file's name; for `index.ts`, of
+the directory name (`entities/airport/index.ts` exports `Airport`). Do not prefix it with the parent
+directory or parent entity name — the import path already supplies that context, the same reason
+`gateways/` and `presenters/` omit their layer suffix. When a file exports several types, the one
+named after the file is the primary type; the rest are named for what they are, still unprefixed.
+
+```typescript
+// Good: src/entities/airport/runways.ts
+export type Runways = { ... };
+
+// Bad: parent directory repeated in the type name
+export type AirportRunways = { ... };
+```
+
+Port types under `usecases/*/gateways|presenters/` are exempt — they are named after the operation
+(`ReadGreetingSource`, `PrintErrorLog`), not after the file.
+
+Resolve a collision with another module's type at the import site with an alias, never by baking
+the prefix into the definition. Alias only where the bare name is ambiguous; where the importing
+file's own path already supplies the subject, keep it bare.
+
+```typescript
+// an importer that declares its own Greeting needs an alias
+import type { Greeting as SourceGreeting } from '@/entities/greeting-source/greeting';
+
+// under a path that already says greeting-source, keep it bare
+import type { Greeting } from '@/entities/greeting-source/greeting';
+```
 
 ## No Logic in Entities
 
@@ -54,3 +87,8 @@ Entity schemas define the domain model — they are NOT a mirror of backend data
 - Use `z.uuid()` instead of `z.string()` when the value is a UUID
 - Field names follow domain conventions (e.g., `userID`), not backend conventions (e.g., `user_id`)
 - Gateways are responsible for mapping between external data and entity schemas
+
+Sharing field names with an external source does not by itself make a schema a mirror of it. A schema
+counts as a domain model once it is defined as the structure the application needs: fields the
+application does not use are dropped, and the object shape itself is redefined for the domain rather
+than carried over. What this rule forbids is adopting the external structure as it stands.

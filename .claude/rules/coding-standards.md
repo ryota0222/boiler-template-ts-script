@@ -237,6 +237,20 @@ src/utilities/tryCatchToEither.ts
 src/entities/safeParseToEither.ts
 ```
 
+Under `gateways/`, `presenters/`, and `usecases/*/gateways|presenters/`, use the agent noun
+(`<verb>er`) instead of the gerund: `greetingSourceReader.ts`, not `greetingSourceReading.ts`. A file
+already named by a plain noun (`environment.ts`, `artifact.ts`) stays as it is. The directory
+supplies the subject, so omit what it already says. Function names inside the file are unaffected.
+
+```text
+# Good: agent noun
+src/gateways/greetingSourceReader.ts
+src/presenters/greetingPrinter.ts
+
+# Bad: gerund
+src/gateways/greetingSourceReading.ts
+```
+
 ## Blank Line Grouping
 
 Group related statements into logical blocks separated by blank lines. Each block should represent one step of the function's work (e.g., fetch data, check error, compute result). Do not write long sequences of statements without blank lines.
@@ -311,6 +325,16 @@ Place each `internal/` directory directly under the module directory it belongs 
 // src/presenters/internal/formatGreetingLine.ts
 // src/internal/formatGreetingLine.ts
 ```
+
+Extract to `internal/` anything that has to be exported for a co-located test or a sibling module to
+reach it, yet is not part of the module's public API. Exporting for testability otherwise widens the
+public surface permanently; `internal/` restores the boundary, because dependency-cruiser lets only
+the parent directory import it. One such export justifies the directory — the number of definitions
+in a file is not the trigger, and neither is its length. This holds in every layer where `internal/`
+is valid, not only `entities/`.
+
+Files inside `internal/` may import each other; only modules outside the parent directory are shut
+out.
 
 ## ESLint Disable Comments
 
