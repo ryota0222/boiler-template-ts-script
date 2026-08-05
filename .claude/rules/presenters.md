@@ -31,6 +31,9 @@ layer, matching the convention in `.claude/rules/gateways.md`.
 - Presenter file: `<domainConcept>.ts` (camelCase, no `Presenter` suffix)
 - Test file: `<domainConcept>.test.ts` (co-located)
 
+When the concept is an activity rather than a thing, name the agent (`greetingPrinter.ts`),
+not the gerund — see "File Naming" in `.claude/rules/coding-standards.md`.
+
 ## No Business Logic
 
 Presenters contain only:
